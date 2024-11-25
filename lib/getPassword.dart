@@ -141,7 +141,7 @@ class _GetPasswordState extends State<GetPassword> {
                       }
                     },
                   ),
-                            ],
+                  ],
                   ),
                 ),
               ),

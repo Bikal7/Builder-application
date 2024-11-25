@@ -142,8 +142,8 @@ showSnackBar(String message){
                             width: 0.20,
                           ),
                         ),
-                        height:
-                            MediaQuery.of(context).size.height * 0.275 + (index * 10),
+                        height:MediaQuery.of(context).size.height * 0.175,
+                            // MediaQuery.of(context).size.height * 0.275 + (index * 10),
                         width: MediaQuery.of(context).size.width * 0.95,
                         constraints: BoxConstraints(
                           maxWidth: MediaQuery.of(context).size.width * 0.95,
@@ -157,13 +157,10 @@ showSnackBar(String message){
                                     MediaQuery.of(context).size.height * 0.15,
                                 width:
                                     MediaQuery.of(context).size.width * 0.9,
-                                decoration: const BoxDecoration(
+                                decoration:  BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(5),
-                                    topRight: Radius.circular(5),
-                                  ),
-                                  boxShadow: [
+                                  borderRadius: BorderRadius.circular(5),
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: Colors.black,
                                       spreadRadius: 0.5,
@@ -341,103 +338,7 @@ showSnackBar(String message){
                                   ),
                                 ),
                               ),
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.1,
-                                width:
-                                    MediaQuery.of(context).size.width * 0.9,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(5),
-                                    bottomRight: Radius.circular(5),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      spreadRadius: 0.5,
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 5),
-                                        child: SizedBox(
-                                          height: 200,
-                                          width: 50,
-                                          child: Align(
-                                            alignment: Alignment.topLeft,
-                                            child: IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.location_on,
-                                                size: 40,
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        child: SizedBox(
-                                          height: 200,
-                                          child: Column(
-                                            children: [
-                                              const SizedBox(height: 10),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.9,
-                                                  height: 25,
-                                                  child: const Text(
-                                                    "Banepa, Kavrepalanchok",
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow.fade,
-                                                    softWrap: false,
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.99,
-                                                  height: 30,
-                                                  child: const FadeTransition(
-                                                    opacity: AlwaysStoppedAnimation(1),
-                                                    child: Text(
-                                                      "5 KM away",
-                                                      style: TextStyle(fontSize: 14),
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.fade,
-                                                      softWrap: false,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
+                              ],
                           ),
                         ),
                       ),

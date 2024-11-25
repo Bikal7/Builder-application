@@ -51,7 +51,10 @@ class AddProfessionsEvent extends LoginEvent{
   String?wName,Profession;
   int?Exp,Phone;
   File?image;
-  AddProfessionsEvent({this.wName,this.Exp,this.Phone,this.Profession,this.image});
+  String? address,longitude,latitude;
+  AddProfessionsEvent({this.wName,this.Exp,this.Phone,this.Profession,this.image,this.address,
+  this.latitude,
+  this.longitude});
 }
 
 // ignore: must_be_immutable

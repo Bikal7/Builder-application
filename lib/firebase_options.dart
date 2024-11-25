@@ -44,21 +44,23 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyATGRbdiLeFK9r5dorEBIE6luQLLgyj24Q',
-    appId: '1:128357506503:web:484784e7e3a43a53134de2',
-    messagingSenderId: '128357506503',
-    projectId: 'builder-c3dab',
-    authDomain: 'builder-c3dab.firebaseapp.com',
-    storageBucket: 'builder-c3dab.appspot.com',
-    measurementId: 'G-X5FS0WNB7R',
+    apiKey: "AIzaSyCvZzUvdX-rcnUETil4_CvxM1I-H8yqtYg",
+  authDomain: "builder-60ea6.firebaseapp.com",
+  projectId: "builder-60ea6",
+  storageBucket: "builder-60ea6.firebasestorage.app",
+  messagingSenderId: "1006512259839",
+  appId: "1:1006512259839:web:30d0356907777cb13cc2ca",
+  measurementId: "G-DDMBF9TNEV"
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBb3W_pmOLlODArdDCjKxVan3TqMUHWDYM',
-    appId: '1:128357506503:android:a4b9cc2088f23e58134de2',
-    messagingSenderId: '128357506503',
-    projectId: 'builder-c3dab',
-    storageBucket: 'builder-c3dab.appspot.com',
+   apiKey: "AIzaSyCvZzUvdX-rcnUETil4_CvxM1I-H8yqtYg",
+  authDomain: "builder-60ea6.firebaseapp.com",
+  projectId: "builder-60ea6",
+  storageBucket: "builder-60ea6.firebasestorage.app",
+  messagingSenderId: "1006512259839",
+  appId: "1:1006512259839:web:30d0356907777cb13cc2ca",
+  measurementId: "G-DDMBF9TNEV"
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

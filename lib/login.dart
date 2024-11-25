@@ -51,47 +51,51 @@ class _LoginState extends State<Login> {
   String? password;
   final _formkey = GlobalKey<FormState>();
 
+  // Save value to shared preferences
   saveValueToSharedPreference() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLogin', true);
     await prefs.setInt("Phone", phone!);
-    }
+  }
 
-  void _resetLoginForm() {
+  // Reset password field (not the entire form)
+  void _resetPasswordField() {
     setState(() {
-      _formkey.currentState!.reset();
-      password = null;
+      password = null;  // Only clear password
     });
   }
 
   Future<void> _navigateAfterDelay(BuildContext context) async {
     await Future.delayed(const Duration(milliseconds: 10));
-    // ignore: use_build_context_synchronously
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const bottomNav()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const bottomNav()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginBloc,LoginState>(
+    return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-    if (state is LoadedState) {
-      if (state.isSuccessful) {
-        saveValueToSharedPreference();
-        _resetLoginForm();
-        _navigateAfterDelay(context);
-      } else {
-        showInvalidCredentialsSnackbar(context);
-      }
-    }
-  },
+        if (state is LoadedState) {
+          if (state.isSuccessful) {
+            saveValueToSharedPreference();
+            _resetPasswordField();  // Only reset the password
+            _navigateAfterDelay(context);
+          } else {
+            showInvalidCredentialsSnackbar(context);
+          }
+        }
+      },
       child: Scaffold(
-        body:SafeArea(
+        body: SafeArea(
           child: SingleChildScrollView(
             child: Form(
               key: _formkey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Logo and header text
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 120, bottom: 15),
@@ -102,23 +106,22 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           "Login to your account",
                           style: TextStyle(
                             fontSize: 24,
-                            color: Color(
-                              0xff000000,
-                            ),
+                            color: Color(0xff000000),
                           ),
                         ),
                       ],
                     ),
                   ),
+                  // Phone input field
                   CustomForm(
                     prefixIcon: const Icon(
                       Icons.phone,
@@ -127,26 +130,24 @@ class _LoginState extends State<Login> {
                     hintText: "Phone",
                     keyboardType: TextInputType.phone,
                     inputFormatters: [
-                LengthLimitingTextInputFormatter(10),
-              ],
-                    validator: ((value) {
+                      LengthLimitingTextInputFormatter(10),
+                    ],
+                    validator: (value) {
                       if (value!.isEmpty) {
-                        return "field are required to be filled";
+                        return "Field is required to be filled";
                       } else if (value.length < 10) {
                         return "Phone number must have 10 digits";
                       }
-                
                       return null;
-                    }),
+                    },
                     onChanged: (value) {
                       setState(() {
                         phone = int.parse(value);
                       });
                     },
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
+                  // Password input field
                   CustomForm(
                     prefixIcon: const Icon(
                       Icons.lock,
@@ -183,6 +184,7 @@ class _LoginState extends State<Login> {
                       });
                     },
                   ),
+                  // Forgot password button
                   Padding(
                     padding: const EdgeInsets.only(right: 8, top: 10),
                     child: Row(
@@ -190,12 +192,12 @@ class _LoginState extends State<Login> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgotPassword()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgotPassword()));
                           },
                           child: const Text(
-                            "Forget password?",
+                            "Forgot password?",
                             style: TextStyle(
-                              color: Color(0xff1777AB,),
+                              color: Color(0xff1777AB),
                               fontSize: 18,
                             ),
                           ),
@@ -203,25 +205,22 @@ class _LoginState extends State<Login> {
                       ],
                     ),
                   ),
+                  // Login button
                   CusButton(
-                    primary: const Color(
-                      0xff1777AB,
-                    ),
+                    primary: const Color(0xff1777AB),
                     text: "Login",
                     fontsize: 18,
-                    color: const Color(
-                      0xffFFFFFF,
-                    ),
+                    color: const Color(0xffFFFFFF),
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
-                      BlocProvider.of<LoginBloc>(context)
-                      .add(LoginEvents(phone: phone, password: password));
-                    } 
+                        BlocProvider.of<LoginBloc>(context).add(
+                          LoginEvents(phone: phone, password: password),
+                        );
+                      }
                     },
                   ),
-                  const SizedBox(
-                    height: 3,
-                  ),
+                  const SizedBox(height: 3),
+                  // Sign up link
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
@@ -229,24 +228,20 @@ class _LoginState extends State<Login> {
                       children: [
                         const Text(
                           "Don't have an account?",
-                          style: TextStyle(
-                              color: Color(0xff000000), fontSize: 18),
+                          style: TextStyle(color: Color(0xff000000), fontSize: 18),
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) =>
-                                        const RegisterForm())));
+                              context,
+                              MaterialPageRoute(builder: ((context) => const RegisterForm())),
+                            );
                           },
                           child: const Text(
                             "Sign up",
-                            style: TextStyle(
-                                color: Color(0xff1777AB,),
-                                fontSize: 18),
+                            style: TextStyle(color: Color(0xff1777AB), fontSize: 18),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   )

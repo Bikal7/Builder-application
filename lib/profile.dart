@@ -151,7 +151,7 @@ void _editProfile(BuildContext context, UserProfile userProfile) {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                primary: Colors.blue,
+                                // primary: Colors.blue,
                                 padding: const EdgeInsets.all(16),
                                 textStyle: const TextStyle(fontSize: 14),
                               ),

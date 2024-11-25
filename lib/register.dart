@@ -297,6 +297,13 @@ class _RegisterFormState extends State<RegisterForm> {
                         if (state is LoadedState) {
                           if (state.isSuccessful) {
                             _showSnackBar("Data sent successfully");
+                            // Navigate to the login page after registration
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Login(), // Redirect to Login screen
+                          ),
+                        );
                           } else {
                             _showSnackBar("Data not sent");
                           }

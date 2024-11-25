@@ -20,7 +20,7 @@ class ProfessionForm extends StatefulWidget {
 class _ProfessionFormState extends State<ProfessionForm> {
   List<String> professionList = ['Civil Engineer', 'Mason', 'Electrician', 'Carpenter', 'Glazier', 'Plumber', 'Painter'];
   String? selectedItems;
-  String?wName,Profession;
+  String?wName,Profession,address,longitude,latitude;
   int?Phone,Exp;
   File? _selectedImage;
   final _formKey = GlobalKey<FormState>();
@@ -43,6 +43,9 @@ class _ProfessionFormState extends State<ProfessionForm> {
         Phone: Phone,
         Profession: selectedItems,
         image: _selectedImage,
+        address: address,
+        longitude: longitude,
+        latitude: latitude,
       ));
     } catch (e) {
       print("Error submitting data: $e");
@@ -73,184 +76,253 @@ class _ProfessionFormState extends State<ProfessionForm> {
       child: Form(
         key: _formKey,
         child: Scaffold(
-          body: Column(
-            children: [
-              Row(
-                  children: [
-                    IconButton(onPressed: (){
-                      Navigator.pop(context);
-                    }, icon: const Icon(Icons.arrow_back_ios)),
-                    const SizedBox(width: 1),
-                    const Text('Profession Details', style: TextStyle(fontSize: 24)),
-                  ],
-                ),
-                const SizedBox(height: 5,),
-              CustomForm(
-                onChanged: (value) {
-                  setState(() {
-                    wName=value;
-                  });
-                },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please enter the Worker name";
-                  } else if (!RegExp("(?=.*[A-Z])").hasMatch(value)) {
-                    return "Worker name must contain at least one uppercase letter\n";
-                  }
-                  return null;
-                },
-                hintText: 'Entern the Worker name',
-                prefixIcon: const Icon(
-                  Icons.people,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              CustomForm(
-                prefixIcon: const Icon(
-                  Icons.calendar_month,
-                  color: Colors.grey,
-                ),
-                hintText: "Experience",
-                keyboardType: TextInputType.phone,
-                inputFormatters: [LengthLimitingTextInputFormatter(2),],
-                validator: ((value) {
-                if (value!.isEmpty) {
-                    return "Field are required to be filled";
-                  }
-                return null;
-                }),
-                onChanged: (value) {      
-                  setState(() {
-                    int? intValue = int.tryParse(value);
-                    if (intValue != null && value.length <= 2) {
-                      setState(() {
-                      Exp = intValue;
-                    });
-                  } 
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              CustomForm(
-                prefixIcon: const Icon(
-                  Icons.phone,
-                  color: Colors.grey,
-                ),
-                hintText: "Phone",
-                keyboardType: TextInputType.phone,
-                inputFormatters: [LengthLimitingTextInputFormatter(10),],
-                validator: ((value) {
-                if (value!.isEmpty) {
-                    return "Field are required to be filled";
-                  }else if (value.length < 10) {
-                    return "Phone number must have 10 digits";
-                  }
-                return null;
-                }),
-                onChanged: (value) {      
-                  setState(() {
-                    int? intValue = int.tryParse(value);
-                    if (intValue != null) {
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                    children: [
+                      IconButton(onPressed: (){
+                        Navigator.pop(context);
+                      }, icon: const Icon(Icons.arrow_back_ios)),
+                      const SizedBox(width: 1),
+                      const Text('Profession Details', style: TextStyle(fontSize: 24)),
+                    ],
+                  ),
+                  const SizedBox(height: 5,),
+                CustomForm(
+                  onChanged: (value) {
                     setState(() {
-                      Phone = intValue;
+                      wName=value;
                     });
-                  } 
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                child: Container(
-                  decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.1),
-                        blurRadius: 2,
-                        offset: Offset(0, 0.05),
-                        spreadRadius: 1),
-                  ]),
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.work,
-                        color: Colors.grey,
-                      ),
-                      hintText: "Professions",
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.0)),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                    ),
-                    value: selectedItems,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Please select the materials";
-                      }
-                      return null;
-                    },
-                    onChanged: (newValue) {
-                      setState(() {
-                        selectedItems = newValue;
-                      });
-                    },
-                    items: professionList.map((profession) {
-                      return DropdownMenuItem(
-                        child: Text(profession),
-                        value: profession,
-                      );
-                    }).toList(),
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter the Worker name";
+                    } else if (!RegExp("(?=.*[A-Z])").hasMatch(value)) {
+                      return "Worker name must contain at least one uppercase letter\n";
+                    }
+                    return null;
+                  },
+                  hintText: 'Entern the Worker name',
+                  prefixIcon: const Icon(
+                    Icons.people,
+                    color: Colors.grey,
                   ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              TextButton(
-                onPressed: _pickImage,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.add_a_photo,color: Colors.grey,),
-                    SizedBox(width: 10),
-                    Text('Upload Image',style: TextStyle(color: Colors.grey),),
-                  ],
+                const SizedBox(
+                  height: 5,
                 ),
-              ),
-              const SizedBox(height: 20),
-              _selectedImage != null
-                  ? Image.file(_selectedImage!, height: 150, width: 150)
-                  : Container(),
-            const SizedBox(height: 10,),
-            CusButton(
-              primary: const Color.fromARGB(255, 36, 85, 123),
-                        fontsize: 16,
-              onPressed: () {
-                _submitData();
-                _resetForm();
-              },
-              text: "Upload",
-              color: Colors.white,
-            ),
-            BlocListener<LoginBloc, LoginState>(
-                listener: (context, state) {
-                  if (state is LoadedState) {
-                    if (state.isSuccessful) {
-                      _showSnackBar("Data sent successfully");
-                    } else {
-                      _showSnackBar("Data not sent");
+                CustomForm(
+                  prefixIcon: const Icon(
+                    Icons.calendar_month,
+                    color: Colors.grey,
+                  ),
+                  hintText: "Experience",
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [LengthLimitingTextInputFormatter(2),],
+                  validator: ((value) {
+                  if (value!.isEmpty) {
+                      return "Field are required to be filled";
                     }
-                  }
+                  return null;
+                  }),
+                  onChanged: (value) {      
+                    setState(() {
+                      int? intValue = int.tryParse(value);
+                      if (intValue != null && value.length <= 2) {
+                        setState(() {
+                        Exp = intValue;
+                      });
+                    } 
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                CustomForm(
+                  prefixIcon: const Icon(
+                    Icons.phone,
+                    color: Colors.grey,
+                  ),
+                  hintText: "Phone",
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [LengthLimitingTextInputFormatter(10),],
+                  validator: ((value) {
+                  if (value!.isEmpty) {
+                      return "Field are required to be filled";
+                    }else if (value.length < 10) {
+                      return "Phone number must have 10 digits";
+                    }
+                  return null;
+                  }),
+                  onChanged: (value) {      
+                    setState(() {
+                      int? intValue = int.tryParse(value);
+                      if (intValue != null) {
+                      setState(() {
+                        Phone = intValue;
+                      });
+                    } 
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                  child: Container(
+                    decoration: const BoxDecoration(boxShadow: [
+                      BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.1),
+                          blurRadius: 2,
+                          offset: Offset(0, 0.05),
+                          spreadRadius: 1),
+                    ]),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.work,
+                          color: Colors.grey,
+                        ),
+                        hintText: "Professions",
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.0)),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                      ),
+                      value: selectedItems,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please select the materials";
+                        }
+                        return null;
+                      },
+                      onChanged: (newValue) {
+                        setState(() {
+                          selectedItems = newValue;
+                        });
+                      },
+                      items: professionList.map((profession) {
+                        return DropdownMenuItem(
+                          child: Text(profession),
+                          value: profession,
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                CustomForm(
+                  onChanged: (value) {
+                    setState(() {
+                      address = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter your address";
+                    } else if (!RegExp("(?=.*[A-Z])").hasMatch(value)) {
+                      return "Address contain at least one uppercase letter\n";
+                    }
+                    return null;
+                  },
+                  hintText: 'Enter the address',
+                  prefixIcon: const Icon(
+                    Icons.location_city_outlined,
+                    color: Colors.grey,
+                  )),
+                const SizedBox(
+                  height: 5,
+                ),
+                CustomForm(
+                    prefixIcon: const Icon(
+                      Icons.location_on,
+                      color: Colors.grey,
+                    ),
+                    hintText: "Longitude",
+                    validator: ((value) {
+                    if (value!.isEmpty) {
+                        return "Field are required to be filled";
+                      }
+                    return null;
+                    }),
+                    onChanged:(value) {
+                            setState(() {
+                              longitude = value;
+                            });
+                          },
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  CustomForm(
+                    prefixIcon: const Icon(
+                      Icons.location_on,
+                      color: Colors.grey,
+                    ),
+                    hintText: "Latitude",
+                    validator: ((value) {
+                    if (value!.isEmpty) {
+                        return "Field are required to be filled";
+                      }
+                    return null;
+                    }),
+                    onChanged: (value) {
+                            setState(() {
+                              latitude = value;
+                            });
+                          },
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                const SizedBox(height: 10),
+                TextButton(
+                  onPressed: _pickImage,
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.add_a_photo,color: Colors.grey,),
+                      SizedBox(width: 10),
+                      Text('Upload Image',style: TextStyle(color: Colors.grey),),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _selectedImage != null
+                    ? Image.file(_selectedImage!, height: 150, width: 150)
+                    : Container(),
+              const SizedBox(height: 10,),
+              CusButton(
+                primary: const Color.fromARGB(255, 36, 85, 123),
+                          fontsize: 16,
+                onPressed: () {
+                  _submitData();
+                  _resetForm();
                 },
-                child: Container(), // Add this container as a child if needed
+                text: "Upload",
+                color: Colors.white,
               ),
-            ],
+              BlocListener<LoginBloc, LoginState>(
+                  listener: (context, state) {
+                    if (state is LoadedState) {
+                      if (state.isSuccessful) {
+                        _showSnackBar("Data sent successfully");
+                      } else {
+                        _showSnackBar("Data not sent");
+                      }
+                    }
+                  },
+                  child: Container(), // Add this container as a child if needed
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -5,6 +5,8 @@ class ProfeesionModel {
   final String imageUrl;
   final String wName, profession;
   final int phone,exp;
+  String?distance;
+  String? latitude,longitude,address;
 
   ProfeesionModel({
     required this.id,
@@ -12,7 +14,11 @@ class ProfeesionModel {
     required this.exp,
     required this.phone,
     required this.profession,
-    required this.wName
+    required this.wName,
+    this.latitude,
+    this.longitude,
+    this.address,
+    this.distance,
   });
 
   factory ProfeesionModel.fromSnapshot(DocumentSnapshot snapshot) {
@@ -24,6 +30,9 @@ class ProfeesionModel {
     profession: data['Profession'] ?? '',
     phone: data['Phone'] ?? '',
     imageUrl: data['ImageURL'] ?? '',
+    address: data['Address']??'',
+    latitude: data['Latitude']??'',
+    longitude: data['Longitude']??''
   );
   }
 }

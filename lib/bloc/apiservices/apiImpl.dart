@@ -157,7 +157,7 @@ try {
   }
   
   @override
-  addProfessions({String? wName, int? Exp, int? Phone, String? Profession, File? image}) async{  
+  addProfessions({String? wName, int? Exp, int? Phone, String? Profession, File? image,String?address,String?longitude,String?latitude}) async{  
       String? imageUrl;
       if (image != null) {
         imageUrl = await uploadImageToFirebaseStorage(image);
@@ -168,6 +168,9 @@ try {
         "Phone":Phone,
         "Profession":Profession,
         "ImageURL": imageUrl,
+        "Address":address,
+        "Latitude":latitude,
+        "Longitude":longitude, 
       };
 
     await FirebaseFirestore.instance.collection("Professions").where("Phone", isEqualTo: Phone).get().then((value)async{

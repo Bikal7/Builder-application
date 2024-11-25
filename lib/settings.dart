@@ -81,7 +81,7 @@ class _SettingsState extends State<Settings> {
                 MaterialPageRoute(builder: ((context) => const OtherSetting())));
           },
         ),
-        if (isAdmin)
+        // if (isAdmin)
           SettingList(
             settingImage: "assets/images/Materials.png",
             settingName: "Add Material Details",
@@ -90,7 +90,7 @@ class _SettingsState extends State<Settings> {
                   MaterialPageRoute(builder: ((context) => const MaterialForm())));
             },
           ),
-        if (isAdmin)
+        // if (isAdmin)
           SettingList(
             settingImage: "assets/images/worker.png",
             settingName: "Add Profession Details",
@@ -249,6 +249,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 const Text(
                   "Are you sure you want to Logout?",
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20),
                 ),
                 const SizedBox(
@@ -274,8 +275,8 @@ class _SettingsState extends State<Settings> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          primary: Colors.white,
-                          onPrimary: Colors.black,
+                          // primary: Colors.white,
+                          // onPrimary: Colors.black,
                         ),
                         child: const Text(
                           "Yes",
@@ -300,8 +301,8 @@ class _SettingsState extends State<Settings> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          primary: Colors.white,
-                          onPrimary: Colors.black,
+                          // primary: Colors.white,
+                          // onPrimary: Colors.black,
                         ),
                         child: const Text(
                           "No",

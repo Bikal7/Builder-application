@@ -1,5 +1,6 @@
 import 'package:builder/Add%20Info/professions.dart';
 import 'package:builder/bottomNav.dart';
+import 'package:builder/dashboard.dart';
 import 'package:builder/login.dart';
 import 'package:builder/register.dart';
 import 'package:builder/splash.dart';
@@ -33,8 +34,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/',
-        routes: {
+         initialRoute: '/',
+         routes: {
           '/bottomNav':(context) => const bottomNav(),
           '/login': (context) => const Login(),
           '/register': (context) => const RegisterForm(),
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/h': (context) => const ProfessionForm(),
           // Add other named routes as needed
         },
+        // home: Dashboard(),
       ),
     );
   }

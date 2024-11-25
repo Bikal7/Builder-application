@@ -64,7 +64,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         Exp: event.Exp,
         Phone: event.Phone,
         Profession: event.Profession,
-        image: event.image
+        image: event.image,
+        address: event.address,
+        latitude: event.latitude,
+        longitude: event.longitude
       );
       if(response!=null){
         emit(LoadedState(isSuccessful: response));
